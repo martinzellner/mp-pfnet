@@ -19,7 +19,7 @@ class SolarProfile():
     def __init__(self):
         PVWatts.api_key = self.api_key
 
-    def get_load_profile(self, start_date=None, end_date=None):
+    def get_generation_profile(self, start_date=None, end_date=None):
         """
         start_date: inclusive that date
         end_date: exclusive that date
