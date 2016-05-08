@@ -34,8 +34,8 @@ class MPProblem():
         return np.hstack([self.problem[t].get_init_point() for t in range(self.net.timesteps)])
 
     def eval(self, x):
+        nx = self.net.num_vars / self.timesteps
         for i in range(self.net.timesteps):
-            nx = self.net.num_vars
             self.problem[i].eval(x[i * nx:i * nx + nx])
 
         return np.hstack([self.problem[i].x for i in range(self.net.timesteps)])
@@ -75,15 +75,14 @@ class MPProblem():
         column_a = [index_P, index_E]
         b[0] = 1 / delta_t * self.net.e_init
 
+        nx = self.net.num_vars / self.timesteps
         for i in range(1, self.timesteps):  # start at one as the initial time is sepcial
-            nx = self.net.num_vars
             data_a += [-1,  # Power
                        (1 / delta_t),  # Energy (current)
                        (- 1 / delta_t)]  # Energy (previous)
             row_a += [i, i, i]
             column_a += [(i * nx + index_P), (i * nx + index_E), ((i - 1) * nx + index_E)]
             b[i] = 0
-        nx = self.net.num_vars
         a = scipy.sparse.coo_matrix((data_a, (row_a, column_a)), shape=(self.timesteps, nx * self.timesteps))
         return a, b
 

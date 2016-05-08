@@ -101,6 +101,8 @@ class MPNetwork():
         for i in range(self.timesteps):
             self.network[i].set_flags(obj_type, flags, props, vals)
 
+        self.num_vars = self.timesteps * self.network[0].num_vars
+
     def update_properties(self, x):
         for i in range(self.timesteps):
             nx = self.num_vars
