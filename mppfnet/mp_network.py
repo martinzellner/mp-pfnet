@@ -9,6 +9,7 @@ from . import solar_profile
 class MPNetwork():
 
     network = dict()
+    num_vars = None
     timesteps = 8760
     start_date = datetime.strptime("1.1.2016", "%d.%m.%Y")
     end_date = datetime.strptime("1.1.2017", "%d.%m.%Y")
@@ -23,10 +24,14 @@ class MPNetwork():
         for i in range(self.timesteps):
             self.network[i] = pfnet.Network()
 
-
     def load(self, filename):
         for i in range(self.timesteps):
             self.network[i].load(filename)
+            self.network[i].clear_flags()
+
+        # set base power and num_vars so mppfnet behaves like pfnet
+        self.base_power = self.network[0].base_power
+        self.num_vars = self.timesteps * self.network[0].num_vars
 
     def __str__(self):
         return "Multi-Period Network with {0} timesteps".format(self.timesteps)
@@ -84,13 +89,22 @@ class MPNetwork():
     def get_network_for_time(self, timestep):
         return self.network[0]
 
-
-
+    def set_flags(self, obj_type, flags, props, vals):
+        """
+        Sets flags of network components with specific properties.
+        :param obj_type: Component Types
+        :param flags: Flag Marks
+        :param props:
+        :param vals:
+        :return:
+        """
+        for i in range(self.timesteps):
+            self.network[i].set_flags(obj_type, flags, props, vals)
 
     def update_properties(self, x):
         for i in range(self.timesteps):
-            m = len(self.problem[i].x)
-            self.network[i].update_properties(x.transpose().flatten()[i * m:i * m + m])
+            nx = self.num_vars
+            self.network[i].update_properties(x.transpose().flatten()[i * nx:i * nx + nx])
 
 
     def set_prices(self):

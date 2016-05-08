@@ -16,21 +16,6 @@ class MPProblem():
         for timestep in range(self.net.timesteps):
             p = pfnet.Problem()
             p.set_network(self.net.network[timestep])
-
-            self.net.network[timestep].clear_flags()
-
-            # bus voltage angles
-            self.net.network[timestep].set_flags(pfnet.OBJ_BUS,
-                                                 pfnet.FLAG_VARS,
-                                                 pfnet.BUS_PROP_NOT_SLACK,
-                                                 pfnet.BUS_VAR_VANG)
-
-            # slack gens active powers
-            self.net.network[timestep].set_flags(pfnet.OBJ_GEN,
-                                                 pfnet.FLAG_VARS,
-                                                 pfnet.GEN_PROP_SLACK,
-                                                 pfnet.GEN_VAR_P)
-
             self.problem[timestep] = p
 
     def add_function(self, function_type, weight):
@@ -50,8 +35,8 @@ class MPProblem():
 
     def eval(self, x):
         for i in range(self.net.timesteps):
-            m = len(self.problem[i].x)
-            self.problem[i].eval(x[i * m:i * m + m])
+            nx = self.net.num_vars
+            self.problem[i].eval(x[i * nx:i * nx + nx])
 
         return np.hstack([self.problem[i].x for i in range(self.net.timesteps)])
 
@@ -69,7 +54,7 @@ class MPProblem():
 
         a_total = scipy.sparse.vstack(a_matrices)
         b_total = np.hstack(b_vectors)
-        return (a_total, b_total)
+        return a_total, b_total
 
     def get_battery_constraint(self, battery):
         """
@@ -82,7 +67,7 @@ class MPProblem():
         index_E = battery.index_E
         delta_t = self.net.delta_t
 
-        b = np.zeros((self.net.timesteps, 1))
+        b = np.zeros((self.net.timesteps,))
         # For first timestep
         data_a = [-1,  # Power
                   1 / delta_t]  # Energy (current)
@@ -91,15 +76,16 @@ class MPProblem():
         b[0] = 1 / delta_t * self.net.e_init
 
         for i in range(1, self.timesteps):  # start at one as the initial time is sepcial
-            m = len(self.problem[i].x)
+            nx = self.net.num_vars
             data_a += [-1,  # Power
                        (1 / delta_t),  # Energy (current)
                        (- 1 / delta_t)]  # Energy (previous)
             row_a += [i, i, i]
-            column_a += [(i * m + index_P), (i * m + index_E), ((i - 1) * m + index_E)]
+            column_a += [(i * nx + index_P), (i * nx + index_E), ((i - 1) * nx + index_E)]
             b[i] = 0
-        a = scipy.sparse.coo_matrix((data_a, (row_a, column_a)), shape=(self.timesteps, m * self.timesteps))
-        return (a, b.flatten())
+        nx = self.net.num_vars
+        a = scipy.sparse.coo_matrix((data_a, (row_a, column_a)), shape=(self.timesteps, nx * self.timesteps))
+        return a, b
 
     def construct_problem(self):
         """
@@ -125,5 +111,5 @@ class MPProblem():
         self.x = np.hstack([self.problem[i].x for i in range(self.timesteps)])
 
         # lower and upper limits
-        self.l = np.hstack([self.problem[i].get_lower_limits() for i in range(self.timesteps)])
-        self.u = np.hstack([self.problem[i].get_upper_limits() for i in range(self.timesteps)])
+        self.l = np.hstack([self.problem[i].l for i in range(self.timesteps)])
+        self.u = np.hstack([self.problem[i].u for i in range(self.timesteps)])
