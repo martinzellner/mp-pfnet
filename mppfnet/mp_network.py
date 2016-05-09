@@ -206,6 +206,11 @@ class MPNetwork():
         for i in range(self.timesteps):
             self.networks[i].set_flags_of_component(obj, flags, vals)
 
+    def set_var_values(self, values):
+        for i in range(self.timesteps):
+            nx = self.num_vars // self.timesteps
+            self.networks[i].set_var_values(values[i * nx:i * nx + nx])
+
     def show_buses(self, number, sort_by, time=0):
         self.networks[time].show_buses(number, sort_by)
 
@@ -247,15 +252,18 @@ class MPNetwork():
 
     def update_properties(self, values=None):
         for i in range(self.timesteps):
-            nx = self.num_vars
-            self.networks[i].update_properties(values.transpose().flatten()[i * nx:i * nx + nx])
+            nx = self.num_vars // self.timesteps
+            if values is not None:
+                self.networks[i].update_properties(values[i * nx:i * nx + nx])
+            else:
+                self.networks[i].update_properties()
 
     def update_set_points(self):
         for network in self.networks:
             network.update_set_points()
 
     # Methods specific to MPPFNET
-    def get_network_for_time(self, time):
+    def get_network(self, time=0):
         return self.networks[time]
 
     def generate_load_profiles(self):
