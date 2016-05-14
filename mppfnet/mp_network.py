@@ -1,6 +1,8 @@
+import csv
 from datetime import datetime
 
 import pfnet
+import scipy
 
 from . import load_profile
 from . import solar_profile
@@ -272,7 +274,7 @@ class MPNetwork():
 
             for n in range(self.timesteps):
                 load = self.get_load(i, n)
-                load.P = self.load_profile_map[i][n] / (self.networks[n].base_power * 1e6)  # convert to p.u.
+                load.P = self.load_profile_map[i][n]  # / (self.networks[n].base_power * 1e6)  # convert to p.u.
 
     def generate_solar_profiles(self):
         for i in range(self.networks[0].num_gens):
@@ -286,3 +288,34 @@ class MPNetwork():
         for i in range(self.timesteps):
             for bus in self.networks[i].buses:
                 bus.price = self.energy_price
+
+    def set_base_power(self, base_power):
+        for i in range(self.timesteps):
+            self.networks[i].base_power = base_power
+
+    def get_adjacency_matrix(self):
+        nb = self.get_network().get_num_buses()
+        rows = []
+        columns = []
+        data = []
+        for branch in self.get_network().branches:
+            rows.append(branch.bus_from.index)
+            columns.append(branch.bus_to.index)
+            data.append(branch.b)
+            # symmetry
+            rows.append(branch.bus_to.index)
+            columns.append(branch.bus_from.index)
+            data.append(branch.b)
+        return scipy.sparse.coo_matrix((data, (rows, columns)), shape=(nb, nb))
+
+    def load_load_profile_from_csv(self, filename):
+        """
+        loads a load profile from a csv file and updates the network accordingly. This also takes care of the conversion according to the base power.
+        :param filename: the path to the CSV file
+        """
+        with open(filename, newline="") as csvfile:
+            reader = csv.reader(csvfile, delimiter=';', quotechar='|')
+            for n, row in enumerate(reader):
+                for i, col in enumerate(row):
+                    load = self.get_load(i, n)
+                    load.P = float(col) / (self.networks[n].base_power * 1e6)  # convert to p.u.
