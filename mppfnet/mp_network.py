@@ -274,20 +274,20 @@ class MPNetwork():
 
             for n in range(self.timesteps):
                 load = self.get_load(i, n)
-                load.P = self.load_profile_map[i][n]  # / (self.networks[n].base_power * 1e6)  # convert to p.u.
+                load.P = self.load_profile_map[i][n] / (self.networks[n].base_power * 1e6)  # convert to p.u.
 
     def generate_solar_profiles(self):
-        for i in range(self.networks[0].num_gens):
+        for i in range(self.networks[0].num_vargens):
             self.solar_profile_map[i] = solar_profile.SolarProfile().get_generation_profile()
 
             for n in range(self.timesteps):
-                generator = self.get_gen(i, n)
+                generator = self.get_vargen(i, n)
                 generator.P = self.solar_profile_map[i][n] / (self.networks[n].base_power * 1e6)  # convert to p.u.
 
-    def set_prices(self):
+    def set_prices(self, price_vector):
         for i in range(self.timesteps):
             for bus in self.networks[i].buses:
-                bus.price = self.energy_price
+                bus.price = price_vector[i]
 
     def set_base_power(self, base_power):
         for i in range(self.timesteps):
@@ -316,6 +316,7 @@ class MPNetwork():
         with open(filename, newline="") as csvfile:
             reader = csv.reader(csvfile, delimiter=';', quotechar='|')
             for n, row in enumerate(reader):
-                for i, col in enumerate(row):
-                    load = self.get_load(i, n)
-                    load.P = float(col) / (self.networks[n].base_power * 1e6)  # convert to p.u.
+                if n < self.timesteps:
+                    for i, col in enumerate(row):
+                        load = self.get_load(i, n)
+                        load.P = float(col) / (self.networks[n].base_power * 1e6)  # convert to p.u.
