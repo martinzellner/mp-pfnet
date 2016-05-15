@@ -2,10 +2,13 @@ import numpy as np
 import pfnet
 import scipy
 
+from . import CONSTR_TYPE_BAT_DYN
+
 
 class MPProblem():
     problems = dict()
     net = None
+    constraints = []
 
     A = None
     b = None
@@ -21,8 +24,11 @@ class MPProblem():
         self.construct_subproblems()
 
     def add_constraint(self, constraint_type):
-        for t in range(self.net.timesteps):
-            self.problems[t].add_constraint(constraint_type)
+        if constraint_type == CONSTR_TYPE_BAT_DYN:
+            self.constraints.append(CONSTR_TYPE_BAT_DYN)
+        else:
+            for t in range(self.net.timesteps):
+                self.problems[t].add_constraint(constraint_type)
 
     def add_function(self, function_type, weight):
         for t in range(self.net.timesteps):
@@ -31,6 +37,28 @@ class MPProblem():
     def analyze(self):
         for t in range(self.net.timesteps):
             self.problems[t].analyze()
+
+        # construct A and b matrices
+        self.A = scipy.sparse.block_diag([self.problems[i].A for i in range(self.timesteps)])
+        self.b = np.hstack([self.problems[i].b for i in range(self.timesteps)])
+
+        # add battery constraints
+        if CONSTR_TYPE_BAT_DYN in self.constraints:
+            battery_a = scipy.sparse.vstack(
+                [self.get_battery_A(battery) for battery in self.net.get_network().batteries])
+            battery_b = np.hstack([self.get_battery_b(battery) for battery in self.net.get_network().batteries])
+
+            self.A = scipy.sparse.vstack([self.A, battery_a])
+            self.b = np.hstack([self.b, battery_b])
+
+        self.Hphi = scipy.sparse.block_diag([self.problems[i].Hphi for i in range(self.timesteps)])
+        self.gphi = np.hstack([self.problems[i].gphi for i in range(self.timesteps)])
+
+        self.x = np.hstack([self.problems[i].x for i in range(self.timesteps)])
+
+        # lower and upper limits
+        self.l = np.hstack([self.problems[i].l for i in range(self.timesteps)])
+        self.u = np.hstack([self.problems[i].u for i in range(self.timesteps)])
 
     def clear(self):
         for t in range(self.net.timesteps):
@@ -45,8 +73,11 @@ class MPProblem():
         for i in range(self.net.timesteps):
             self.problems[i].eval(x[i * nx:i * nx + nx])
 
-        return np.hstack([self.problems[i].x for i in range(self.net.timesteps)])
+        self.x = np.hstack([self.problems[i].x for i in range(self.net.timesteps)])
+        self.gphi = np.hstack([self.problems[i].gphi for i in range(self.net.timesteps)])
+        self.Hphi = scipy.sparse.block_diag([self.problems[i].Hphi for i in range(self.timesteps)])
 
+        return self.x
     def find_constraint(selfm, type):
         pass  # TODO
 
@@ -95,53 +126,31 @@ class MPProblem():
         column_a = [index_P, index_E]
 
         nx = self.net.num_vars // self.timesteps
-        for i in range(1, self.timesteps):  # start at one as the initial time is sepcial
+        for n in range(1, self.timesteps):  # start at one as the initial time is sepcial
+            data_a += [(- 1 / delta_t)]  # Energy (previous)
+            row_a += [n]
+            column_a += [((n - 1) * nx + index_E)]
             data_a += [-1,  # Power
-                       (1 / delta_t),  # Energy (current)
-                       (- 1 / delta_t)]  # Energy (previous)
-            row_a += [i, i, i]
-            column_a += [(i * nx + index_P), (i * nx + index_E), ((i - 1) * nx + index_E)]
-
+                       (1 / delta_t)]  # Energy (previous)
+            row_a += [n, n]
+            column_a += [(n * nx + index_P), (n * nx + index_E)]
         # For the last timestep
         # data_a += [1 / delta_t]  # Energy (current)
         # row_a += [self.timesteps]
-        # column_a += [(i * nx + index_E)]
+        # column_a += [((self.timesteps - 1) * nx + index_E)]
 
         a = scipy.sparse.coo_matrix((data_a, (row_a, column_a)), shape=(self.timesteps, nx * self.timesteps))
+        # a = scipy.sparse.coo_matrix((data_a, (row_a, column_a)), shape=(self.timesteps+1, nx * self.timesteps))
         return a
 
     def get_battery_b(self, battery):
+        #b = np.zeros((self.net.timesteps+1,))
         b = np.zeros((self.net.timesteps,))
+
         b[0] = 1 / self.net.delta_t * self.net.e_init
-        # b[self.timesteps] =  1 / self.net.delta_t * self.net.e_init
+        #b[self.timesteps] =  1 / self.net.delta_t * self.net.e_init
         return b
 
-    def construct_problem(self):
-        """
-        Constructs the A, b, l, u, Hphi and gphi matrices of the problems
-        """
-
-        # construct A and b matrices
-        network_a = scipy.sparse.block_diag([self.problems[i].A for i in range(self.timesteps)])
-        network_b = np.hstack([self.problems[i].b for i in range(self.timesteps)])
-
-        battery_a = scipy.sparse.vstack([self.get_battery_A(battery) for battery in self.net.get_network().batteries])
-        battery_b = np.hstack([self.get_battery_b(battery) for battery in self.net.get_network().batteries])
-
-        self.A = scipy.sparse.vstack([network_a, battery_a])
-        self.b = np.hstack([network_b, battery_b])
-
-        # construct cost function matrices
-        #f = sum([self.problems[i].functions for i in range(self.timesteps)])
-
-        self.Hphi = scipy.sparse.block_diag([self.problems[i].Hphi for i in range(self.timesteps)])
-        self.gphi = np.hstack([self.problems[i].gphi for i in range(self.timesteps)])
-
-        self.x = np.hstack([self.problems[i].x for i in range(self.timesteps)])
-
-        # lower and upper limits
-        self.l = np.hstack([self.problems[i].l for i in range(self.timesteps)])
-        self.u = np.hstack([self.problems[i].u for i in range(self.timesteps)])
 
     def construct_subproblems(self):
         for t in range(self.net.timesteps):
