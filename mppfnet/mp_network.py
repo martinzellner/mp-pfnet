@@ -287,7 +287,8 @@ class MPNetwork():
     def set_prices(self, price_vector):
         for i in range(self.timesteps):
             for bus in self.networks[i].buses:
-                bus.price = price_vector[i]
+                if not bus.is_slack():
+                    bus.price = price_vector[i]
 
     def set_base_power(self, base_power):
         for i in range(self.timesteps):
@@ -307,6 +308,8 @@ class MPNetwork():
             columns.append(branch.bus_from.index)
             data.append(branch.b)
         return scipy.sparse.coo_matrix((data, (rows, columns)), shape=(nb, nb))
+
+
 
     def load_load_profile_from_csv(self, filename):
         """
