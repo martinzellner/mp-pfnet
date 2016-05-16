@@ -119,8 +119,11 @@ class MPProblem():
         index_E = battery.index_E
         delta_t = self.net.delta_t
 
+        data_a = []
+        row_a = []
+        column_a = []
         # For first timestep
-        data_a = [-1,  # Power
+        data_a += [-1,  # Power
                   1 / delta_t]  # Energy (current)
         row_a = [0, 0]
         column_a = [index_P, index_E]
@@ -131,29 +134,76 @@ class MPProblem():
             row_a += [n]
             column_a += [((n - 1) * nx + index_E)]
             data_a += [-1,  # Power
-                       (1 / delta_t)]  # Energy (previous)
+                       (1 / delta_t)]  # Energy (current)
             row_a += [n, n]
             column_a += [(n * nx + index_P), (n * nx + index_E)]
         # For the last timestep
-        # data_a += [1 / delta_t]  # Energy (current)
-        # row_a += [self.timesteps]
-        # column_a += [((self.timesteps - 1) * nx + index_E)]
+        #data_a += [1 / delta_t, - 1 / delta_t]  # Energy (current)
+        #row_a += [self.timesteps, self.timesteps]
+        #column_a += [index_E, ((self.timesteps - 1) * nx + index_E)]
 
         a = scipy.sparse.coo_matrix((data_a, (row_a, column_a)), shape=(self.timesteps, nx * self.timesteps))
-        # a = scipy.sparse.coo_matrix((data_a, (row_a, column_a)), shape=(self.timesteps+1, nx * self.timesteps))
+       # a = scipy.sparse.coo_matrix((data_a, (row_a, column_a)), shape=(self.timesteps+1, nx * self.timesteps))
         return a
 
     def get_battery_b(self, battery):
         #b = np.zeros((self.net.timesteps+1,))
         b = np.zeros((self.net.timesteps,))
 
-        b[0] = 1 / self.net.delta_t * self.net.e_init
+        b[0] = (1 / self.net.delta_t) * self.net.e_init
         #b[self.timesteps] =  1 / self.net.delta_t * self.net.e_init
         return b
-
 
     def construct_subproblems(self):
         for t in range(self.net.timesteps):
             p = pfnet.Problem()
             p.set_network(self.net.get_network(time=t))
             self.problems[t] = p
+
+    def get_coupling_A(self):
+        net = self.net.get_network()
+
+        a_i_matrices = dict()
+        # construct A_i s
+        for bus_i in net.buses:
+            row_a_i_j = []
+            col_a_i_j = []
+            data_a_i_j = []
+            for bus_j in net.buses:
+                # self-injection
+                if bus_j == bus_i:
+                    data_a_i_j.append(sum([branch.b for branch in bus_j.branches]))
+                    row_a_i_j.append(bus_j.index)
+                    col_a_i_j.append(2)
+                    data_a_i_j.append(-1.0)
+                    row_a_i_j.append(bus_j.index)
+                    col_a_i_j.append(3)
+                # outgoing branches
+                for branch in bus_j.branches_from:
+                    if branch.bus_to == bus_i:
+                        data_a_i_j.append(-1 * branch.b)
+                        row_a_i_j.append(bus_j.index)
+                        col_a_i_j.append(2)
+                # incoming branches
+                for branch in bus_j.branches_to:
+                    if branch.bus_from == bus_i:
+                        data_a_i_j.append(-1 * branch.b)
+                        row_a_i_j.append(bus_j.index)
+                        col_a_i_j.append(2)
+            # construct A_i matrix
+            a_i_matrices[bus_i.index] = scipy.sparse.coo_matrix((data_a_i_j, (row_a_i_j, col_a_i_j)), shape=(net.num_buses,5))
+
+        return a_i_matrices
+
+    def get_local_constraints(self):
+        net = self.net.get_network()
+        local_constraints = dict()
+        for bus in net.buses:
+
+            # battery constraints
+            for batteries in bus.bats:
+                pass
+
+            local_constraints[bus.index] = (X, l, u)
+
+        return local_constraints
