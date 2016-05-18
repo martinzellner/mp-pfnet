@@ -290,10 +290,6 @@ class MPNetwork():
                 if not bus.is_slack():
                     bus.price = price_vector[i]
 
-    def set_base_power(self, base_power):
-        for i in range(self.timesteps):
-            self.networks[i].base_power = base_power
-
     def get_adjacency_matrix(self):
         nb = self.get_network().get_num_buses()
         rows = []

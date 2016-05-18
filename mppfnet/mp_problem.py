@@ -115,7 +115,8 @@ class MPProblem():
         :return: The rows that are added to the A matrix
         """
 
-        index_P = battery.index_P
+        index_Pc = battery.index_Pc
+        index_Pd = battery.index_Pd
         index_E = battery.index_E
         delta_t = self.net.delta_t
 
@@ -123,20 +124,20 @@ class MPProblem():
         row_a = []
         column_a = []
         # For first timestep
-        data_a += [-1,  # Power
+        data_a += [-1, 1,  # Power
                   1 / delta_t]  # Energy (current)
-        row_a = [0, 0]
-        column_a = [index_P, index_E]
+        row_a = [0,0,  0]
+        column_a = [index_Pc, index_Pd, index_E]
 
         nx = self.net.num_vars // self.timesteps
         for n in range(1, self.timesteps):  # start at one as the initial time is sepcial
             data_a += [(- 1 / delta_t)]  # Energy (previous)
             row_a += [n]
             column_a += [((n - 1) * nx + index_E)]
-            data_a += [-1,  # Power
+            data_a += [-1, 1,  # Power
                        (1 / delta_t)]  # Energy (current)
-            row_a += [n, n]
-            column_a += [(n * nx + index_P), (n * nx + index_E)]
+            row_a += [n, n, n]
+            column_a += [(n * nx + index_Pc), (n * nx + index_Pd), (n * nx + index_E)]
         # For the last timestep
         #data_a += [1 / delta_t, - 1 / delta_t]  # Energy (current)
         #row_a += [self.timesteps, self.timesteps]
@@ -191,7 +192,7 @@ class MPProblem():
                         row_a_i_j.append(bus_j.index)
                         col_a_i_j.append(2)
             # construct A_i matrix
-            a_i_matrices[bus_i.index] = scipy.sparse.coo_matrix((data_a_i_j, (row_a_i_j, col_a_i_j)), shape=(net.num_buses,5))
+            a_i_matrices[bus_i.index] = scipy.sparse.coo_matrix((data_a_i_j, (row_a_i_j, col_a_i_j)), shape=(net.num_buses,4))
 
         return a_i_matrices
 
