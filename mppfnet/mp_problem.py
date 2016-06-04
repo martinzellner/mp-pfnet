@@ -124,7 +124,7 @@ class MPProblem():
         row_a = []
         column_a = []
         # For first timestep
-        data_a += [-1, 1,  # Power
+        data_a += [-battery.eta_c, 1/battery.eta_d,  # Power
                   1 / delta_t]  # Energy (current)
         row_a = [0,0,  0]
         column_a = [index_Pc, index_Pd, index_E]
@@ -134,7 +134,7 @@ class MPProblem():
             data_a += [(- 1 / delta_t)]  # Energy (previous)
             row_a += [n]
             column_a += [((n - 1) * nx + index_E)]
-            data_a += [-1, 1,  # Power
+            data_a += [-battery.eta_c, 1/battery.eta_d,  # Power
                        (1 / delta_t)]  # Energy (current)
             row_a += [n, n, n]
             column_a += [(n * nx + index_Pc), (n * nx + index_Pd), (n * nx + index_E)]
