@@ -523,3 +523,18 @@ class MPNetwork():
 
             p_zs[bus.index] = scipy.sparse.block_diag([p_z for i in range(self.timesteps)])
         return p_zs
+
+
+    def get_branch_projection(self):
+        p_bs = dict()
+        for bus in self.get_network().buses:
+            cols, rows, data = [], [], []
+
+            for n, branch in enumerate(bus.branches):
+                cols += [branch.index]
+                rows += [n]
+                data += [1]
+            p_b = scipy.sparse.coo_matrix((data, (rows, cols)), shape=(len(bus.branches), self.get_num_branches_not_on_outage()))
+
+            p_bs[bus.index] = scipy.sparse.block_diag([p_b for i in range(self.timesteps)])
+        return p_bs
