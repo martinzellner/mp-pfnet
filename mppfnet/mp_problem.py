@@ -52,6 +52,7 @@ class MPProblem():
             self.b = np.hstack([self.b, battery_b])
 
         self.Hphi = scipy.sparse.block_diag([self.problems[i].Hphi for i in range(self.timesteps)])
+        self.G = scipy.sparse.block_diag([self.problems[i].G for i in range(self.timesteps)])
         self.gphi = np.hstack([self.problems[i].gphi for i in range(self.timesteps)])
 
         self.x = np.hstack([self.problems[i].x for i in range(self.timesteps)])
