@@ -39,8 +39,12 @@ class MPProblem():
             self.problems[t].analyze()
 
         # construct A and b matrices
-        self.A = scipy.sparse.block_diag([self.problems[i].A for i in range(self.timesteps)])
-        self.b = np.hstack([self.problems[i].b for i in range(self.timesteps)])
+        try:
+            self.A = scipy.sparse.block_diag([self.problems[i].A for i in range(self.timesteps)])
+            self.b = np.hstack([self.problems[i].b for i in range(self.timesteps)])
+        except ValueError:
+            self.A = scipy.sparse.coo_matrix(([], ([], [])), shape=(0, self.net.get_network().num_vars * self.timesteps))
+            self.b = np.array([])
 
         # add battery constraints
         if CONSTR_TYPE_BAT_DYN in self.constraints:
@@ -48,8 +52,12 @@ class MPProblem():
                 [self.get_battery_A(battery) for battery in self.net.get_network().batteries])
             battery_b = np.hstack([self.get_battery_b(battery) for battery in self.net.get_network().batteries])
 
-            self.A = scipy.sparse.vstack([self.A, battery_a])
-            self.b = np.hstack([self.b, battery_b])
+            if self.A.shape[0] != 0:
+                self.A = scipy.sparse.vstack([self.A, battery_a])
+                self.b = np.hstack([self.b, battery_b])
+            else:
+                self.A = battery_a
+                self.b = battery_b
 
         self.Hphi = scipy.sparse.block_diag([self.problems[i].Hphi for i in range(self.timesteps)])
         self.G = scipy.sparse.block_diag([self.problems[i].G for i in range(self.timesteps)])
