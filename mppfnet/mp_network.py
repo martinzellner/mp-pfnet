@@ -451,11 +451,13 @@ class MPNetwork():
             #     data_p += [1, ]
             #     num_vars += 1
             #     num_local_only_vars += 1
-            rows_x += [num_vars]
-            cols_x += [bus.index_v_ang]
-            data_x += [1]
+            if bus.has_flags(pfnet.FLAG_VARS, pfnet.BUS_VAR_VANG):
+                rows_x += [num_vars]
+                cols_x += [bus.index_v_ang]
+                data_x += [1]
 
             adj_buses = [br.bus_from for br in bus.branches_to] + [br.bus_to for br in bus.branches_from]  + [bus]
+            adj_buses = filter(lambda bus: bus.has_flags(pfnet.FLAG_VARS, pfnet.BUS_VAR_VANG), adj_buses)
             adj_buses = list(filter(lambda bus: (not bus.is_slack()), adj_buses))
             adj_buses = sorted(adj_buses, key=lambda b: b.index)
 
@@ -477,21 +479,21 @@ class MPNetwork():
 
         # check matrices
         n_var = 0
-        for bus in filter(lambda bus: (not bus.is_slack()), self.get_network().buses):
-            index = bus.index
-            num_gens = len(list(filter(lambda gen: gen.has_flags(pfnet.FLAG_VARS, pfnet.GEN_VAR_P), bus.gens)))
-            num_vargens = len(list(filter(lambda vargen: vargen.has_flags(pfnet.FLAG_VARS, pfnet.VARGEN_VAR_P), bus.vargens)))
-            local_variables = num_vargens + len(bus.bats) * 3 + num_gens
-            angles = 1 + bus.degree
-            n_var += 1 + local_variables
+        #for bus in filter(lambda bus: (not bus.is_slack()), self.get_network().buses):
+        #    index = bus.index
+        #    num_gens = len(list(filter(lambda gen: gen.has_flags(pfnet.FLAG_VARS, pfnet.GEN_VAR_P), bus.gens)))
+        #    num_vargens = len(list(filter(lambda vargen: vargen.has_flags(pfnet.FLAG_VARS, pfnet.VARGEN_VAR_P), bus.vargens)))
+        #    local_variables = num_vargens + len(bus.bats) * 3 + num_gens
+        #    angles = 1 + bus.degree
+        #    n_var += 1 + local_variables
             #assert (p_mats[index].shape == (local_variables + angles, self.get_network().num_vars))
             #assert (p_ang[index].shape == (angles, local_variables + angles))
         sim_p_mats, sim_p_ang, sim_p_x= dict(), dict(), dict()
 
         for bus in filter(lambda bus: (not bus.is_slack()), self.get_network().buses):
             sim_p_mats[bus.index] = scipy.sparse.block_diag([p_mats[bus.index] for i in range(self.timesteps)])
-            sim_p_ang[bus.index] = scipy.sparse.block_diag([p_ang[bus.index] for i in range(self.timesteps)])
-            sim_p_x[bus.index] = scipy.sparse.block_diag([p_x[bus.index] for i in range(self.timesteps)])
+            #sim_p_ang[bus.index] = scipy.sparse.block_diag([p_ang[bus.index] for i in range(self.timesteps)])
+            #sim_p_x[bus.index] = scipy.sparse.block_diag([p_x[bus.index] for i in range(self.timesteps)])
 
         return (sim_p_mats, sim_p_ang, sim_p_x)
 
