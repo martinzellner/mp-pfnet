@@ -69,3 +69,5 @@ alpg/
 
 # Ignore Data
 data/*
+
+.idea/vcs.xml
