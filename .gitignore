@@ -61,5 +61,11 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
+# PyCharm Project Files
 .idea*
+
+# Ignore ALPG
 alpg/
+
+# Ignore Data
+data/*
