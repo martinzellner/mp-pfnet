@@ -3,8 +3,8 @@ from datetime import datetime
 
 import pfnet
 import scipy
-
-from . import load_profile
+import numpy as np
+#from . import load_profile
 from . import solar_profile
 
 
@@ -343,7 +343,7 @@ class MPNetwork():
     def set_prices(self, price_vector):
         """
         set the price attribute of the buses to the values given.
-        :param price_vector: A vector of prices that has at least as many entries as there are time steps in the network.
+        :param price_vector: A vector of prices that has at least as many entries as there are time steps in the network. Prices in EUR/Base Power
         """
         for i in range(self.timesteps):
             for bus in self.networks[i].buses:
@@ -445,6 +445,16 @@ class MPNetwork():
                 num_vars += 1
                 num_local_only_vars += 1
 
+            for load in filter(lambda load: load.has_flags(pfnet.FLAG_VARS, pfnet.LOAD_VAR_P), bus.loads):
+                rows_p += [num_vars, ]
+                cols_p += [load.index_P, ]
+                data_p += [1, ]
+                rows_x += [num_vars, ]
+                cols_x += [load.index_P, ]
+                data_x += [1, ]
+                num_vars += 1
+                num_local_only_vars += 1
+
             # for vargen in  filter(lambda gen: gen.has_flags(pfnet.FLAG_VARS, pfnet.VARGEN_VAR_Q), bus.vargens):
             #     rows_p += [num_vars, ]
             #     cols_p += [vargen.index_Q, ]
@@ -538,5 +548,47 @@ class MPNetwork():
                 data += [1]
             p_b = scipy.sparse.coo_matrix((data, (rows, cols)), shape=(len(bus.branches), self.get_num_branches_not_on_outage()))
 
-            p_bs[bus.index] = scipy.sparse.block_diag([p_b for i in range(self.timesteps)])
+            p_bs[bus.index] = scipy.sparse.block_diag([p_b] * self.timesteps)
         return p_bs
+
+
+    def get_battery_var_projection(self, bus):
+        """
+        creates a projection matrix that extracts the variables (for all t) for all batteries connected to the given bus from the state vector x
+        :param bus: the bus the matrix should be created for
+        :return: a n x |x| sparse matrix where n is the number of variables of all batteries ( and all t) and |x| is the size of the (multi-period) state vector
+        """
+        # project all battery variables for the given bus
+        p_bat = scipy.sparse.hstack([self.get_battery_projection(battery) for battery in bus.batteries])
+
+        # create blockdiagonal matrix with multiple timesteps
+        p_bat_mp = scipy.sparse.block_diag([p_bat] * self.timesteps)
+        return p_bat_mp
+
+    def get_battery_projection(self, battery):
+        """
+        creates a projection matrix that extracts all battery quantities that are defined as variables (E, Pc, Pd) from the state vector of a single problem
+        :param battery: the battery to create the projection matrix for
+        :return: a n x |x| sparse matrix where n is the number of variables of the battery
+        """
+        rows, cols, data = [], [], []
+        num_vars = 0
+
+        # project power charge and discharge if defined as a variable
+        if battery.has_flags(pfnet.FLAG_VARS, pfnet.BAT_VAR_P):
+            rows += [num_vars + 0, num_vars + 1]
+            cols += [battery.index_Pc, battery.index_Pd]
+            data += [1, 1]
+            num_vars += 2
+
+        # project energy if defined as a variable
+        if battery.has_flags(pfnet.FLAG_VARS, pfnet.BAT_VAR_E):
+            rows += [num_vars + 0]
+            cols += [battery.index_E]
+            data += [1]
+            num_vars += 1
+
+        # size of the state vector
+        nx = self.get_network().num_vars
+
+        return scipy.sparse.coo_matrix((data, (rows, cols)), shape=(num_vars, nx))
