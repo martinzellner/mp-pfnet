@@ -1,4 +1,4 @@
-from alpg.households import HouseholdSingleWorker
+from .alpg.households import HouseholdSingleWorker
 import numpy as np
 
 class LoadProfile():
