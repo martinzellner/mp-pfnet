@@ -7,6 +7,16 @@ class LoadProfile():
         pass
 
     def get_load_profile(self, start_date=None, end_date=None):
+        """
+
+
+        :param start_date:
+        :type start_date: :class:`datetime.datetime`
+        :param end_date:
+        :type end_date: :class:`datetime.datetime`
+
+        :return:
+        """
         h = HouseholdSingleWorker()
         h.simulate()
         h.scaleProfile()
