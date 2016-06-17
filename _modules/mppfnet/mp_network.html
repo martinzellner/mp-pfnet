@@ -637,12 +637,8 @@
             <span class="n">p_zs</span><span class="p">[</span><span class="n">bus</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">block_diag</span><span class="p">([</span><span class="n">p_z</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timesteps</span><span class="p">)])</span>
         <span class="k">return</span> <span class="n">p_zs</span></div>
 
-<div class="viewcode-block" id="MPNetwork.get_branch_projection"><a class="viewcode-back" href="../../mppfnet.html#mppfnet.mp_network.MPNetwork.get_branch_projection">[docs]</a>    <span class="k">def</span> <span class="nf">get_branch_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">        :return:</span>
-<span class="sd">        :rtype: :class:`scipy.sparse.coo_matrix`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="MPNetwork.get_branch_projection"><a class="viewcode-back" href="../../mppfnet.html#mppfnet.mp_network.MPNetwork.get_branch_projection">[docs]</a>    <span class="k">def</span> <span class="nf">get_branch_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">p_bs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">bus</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_network</span><span class="p">()</span><span class="o">.</span><span class="n">buses</span><span class="p">:</span>
             <span class="n">cols</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
@@ -656,16 +652,12 @@
             <span class="n">p_bs</span><span class="p">[</span><span class="n">bus</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">block_diag</span><span class="p">([</span><span class="n">p_b</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">timesteps</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">p_bs</span></div>
 
+
 <div class="viewcode-block" id="MPNetwork.get_battery_var_projection"><a class="viewcode-back" href="../../mppfnet.html#mppfnet.mp_network.MPNetwork.get_battery_var_projection">[docs]</a>    <span class="k">def</span> <span class="nf">get_battery_var_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bus</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        creates a projection matrix that extracts the variables (for all t) for all batteries</span>
-<span class="sd">        connected to the given bus from the state vector x</span>
-
+<span class="sd">        creates a projection matrix that extracts the variables (for all t) for all batteries connected to the given bus from the state vector x</span>
 <span class="sd">        :param bus: the bus the matrix should be created for</span>
-<span class="sd">        :return: a n x |x| sparse matrix where n is the number of variables of all</span>
-<span class="sd">        batteries ( and all t) and |x| is the size of the (multi-period) state vector</span>
-<span class="sd">        :rtype: :class:`scipy.sparse.coo_matrix`</span>
-
+<span class="sd">        :return: a n x |x| sparse matrix where n is the number of variables of all batteries ( and all t) and |x| is the size of the (multi-period) state vector</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># project all battery variables for the given bus</span>
         <span class="n">p_bat</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">get_battery_projection</span><span class="p">(</span><span class="n">battery</span><span class="p">)</span> <span class="k">for</span> <span class="n">battery</span> <span class="ow">in</span> <span class="n">bus</span><span class="o">.</span><span class="n">bats</span><span class="p">])</span>
@@ -676,13 +668,9 @@
 
 <div class="viewcode-block" id="MPNetwork.get_battery_projection"><a class="viewcode-back" href="../../mppfnet.html#mppfnet.mp_network.MPNetwork.get_battery_projection">[docs]</a>    <span class="k">def</span> <span class="nf">get_battery_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">battery</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        creates a projection matrix that extracts all battery quantities that are defined as variables (:math:`E, P_c, P_d`)</span>
-<span class="sd">        from the state vector of a single problem</span>
-
-<span class="sd">        :param battery: the battery to create the projection matrix for``</span>
-<span class="sd">        :type battery: :class:`pfnet.Battery`</span>
-<span class="sd">        :return: a :math:`n \\times |x|` sparse matrix where :math:`n` is the number of variables of the battery`</span>
-<span class="sd">        :rtype: :class:`scipy.sparse.coo_matrix`</span>
+<span class="sd">        creates a projection matrix that extracts all battery quantities that are defined as variables (E, Pc, Pd) from the state vector of a single problem</span>
+<span class="sd">        :param battery: the battery to create the projection matrix for</span>
+<span class="sd">        :return: a n x |x| sparse matrix where n is the number of variables of the battery</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
         <span class="n">num_vars</span> <span class="o">=</span> <span class="mi">0</span>

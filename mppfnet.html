@@ -207,39 +207,17 @@
 <dl class="method">
 <dt id="mppfnet.mp_network.MPNetwork.get_battery_projection">
 <code class="descname">get_battery_projection</code><span class="sig-paren">(</span><em>battery</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_battery_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_battery_projection" title="Permalink to this definition">¶</a></dt>
-<dd><p>creates a projection matrix that extracts all battery quantities that are defined as variables (<span class="math">\(E, P_c, P_d\)</span>)
-from the state vector of a single problem</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>battery</strong> (<a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Battery" title="(in PFNET v1.3)"><code class="xref py py-class docutils literal"><span class="pre">pfnet.Battery</span></code></a>) &#8211; the battery to create the projection matrix for``</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a <span class="math">\(n \times |x|\)</span> sparse matrix where <span class="math">\(n\)</span> is the number of variables of the battery`</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html#scipy.sparse.coo_matrix" title="(in SciPy v0.17.1)"><code class="xref py py-class docutils literal"><span class="pre">scipy.sparse.coo_matrix</span></code></a></td>
-</tr>
-</tbody>
-</table>
+<dd><p>creates a projection matrix that extracts all battery quantities that are defined as variables (E, Pc, Pd) from the state vector of a single problem
+:param battery: the battery to create the projection matrix for
+:return: a n x <a href="#id9"><span class="problematic" id="id10">|x|</span></a> sparse matrix where n is the number of variables of the battery</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="mppfnet.mp_network.MPNetwork.get_battery_var_projection">
 <code class="descname">get_battery_var_projection</code><span class="sig-paren">(</span><em>bus</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_battery_var_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_battery_var_projection" title="Permalink to this definition">¶</a></dt>
-<dd><p>creates a projection matrix that extracts the variables (for all t) for all batteries
-connected to the given bus from the state vector x</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bus</strong> &#8211; the bus the matrix should be created for</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a n x <a href="#id9"><span class="problematic" id="id10">|x|</span></a> sparse matrix where n is the number of variables of all</td>
-</tr>
-</tbody>
-</table>
-<p>batteries ( and all t) and <a href="#id11"><span class="problematic" id="id12">|x|</span></a> is the size of the (multi-period) state vector
-:rtype: <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html#scipy.sparse.coo_matrix" title="(in SciPy v0.17.1)"><code class="xref py py-class docutils literal"><span class="pre">scipy.sparse.coo_matrix</span></code></a></p>
+<dd><p>creates a projection matrix that extracts the variables (for all t) for all batteries connected to the given bus from the state vector x
+:param bus: the bus the matrix should be created for
+:return: a n x <a href="#id11"><span class="problematic" id="id12">|x|</span></a> sparse matrix where n is the number of variables of all batteries ( and all t) and <a href="#id13"><span class="problematic" id="id14">|x|</span></a> is the size of the (multi-period) state vector</p>
 </dd></dl>
 
 <dl class="method">
@@ -250,17 +228,7 @@ connected to the given bus from the state vector x</p>
 <dl class="method">
 <dt id="mppfnet.mp_network.MPNetwork.get_branch_projection">
 <code class="descname">get_branch_projection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_branch_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_branch_projection" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html#scipy.sparse.coo_matrix" title="(in SciPy v0.17.1)"><code class="xref py py-class docutils literal"><span class="pre">scipy.sparse.coo_matrix</span></code></a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="mppfnet.mp_network.MPNetwork.get_bus">
