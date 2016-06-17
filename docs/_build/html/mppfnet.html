@@ -1,0 +1,1165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mppfnet package &mdash; MP-PFNET 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="MP-PFNET 1.0 documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="mppfnet-package">
+<h1>mppfnet package<a class="headerlink" href="#mppfnet-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-mppfnet.load_profile">
+<span id="mppfnet-load-profile-module"></span><h2>mppfnet.load_profile module<a class="headerlink" href="#module-mppfnet.load_profile" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="mppfnet.load_profile.LoadProfile">
+<em class="property">class </em><code class="descclassname">mppfnet.load_profile.</code><code class="descname">LoadProfile</code><a class="reference internal" href="_modules/mppfnet/load_profile.html#LoadProfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.load_profile.LoadProfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="mppfnet.load_profile.LoadProfile.get_load_profile">
+<code class="descname">get_load_profile</code><span class="sig-paren">(</span><em>start_date=None</em>, <em>end_date=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/load_profile.html#LoadProfile.get_load_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.load_profile.LoadProfile.get_load_profile" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>start_date</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/datetime.html#datetime.datetime" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code></a>) &#8211; </li>
+<li><strong>end_date</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/datetime.html#datetime.datetime" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code></a>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-mppfnet.mp_network">
+<span id="mppfnet-mp-network-module"></span><h2>mppfnet.mp_network module<a class="headerlink" href="#module-mppfnet.mp_network" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="mppfnet.mp_network.MPNetwork">
+<em class="property">class </em><code class="descclassname">mppfnet.mp_network.</code><code class="descname">MPNetwork</code><span class="sig-paren">(</span><em>timesteps=8760</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.add_vargens">
+<code class="descname">add_vargens</code><span class="sig-paren">(</span><em>buses</em>, <em>penetration</em>, <em>uncertainty</em>, <em>corr_radius</em>, <em>corr_value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.add_vargens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.add_vargens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a variable generator (PV, Wind, etc.) to the network`</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>buses</strong> &#8211; The buses the generators should be added to</li>
+<li><strong>penetration</strong> &#8211; </li>
+<li><strong>uncertainty</strong> &#8211; </li>
+<li><strong>corr_radius</strong> &#8211; </li>
+<li><strong>corr_value</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Seealso:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Network.add_vargens" title="(in PFNET v1.3)"><code class="xref py py-meth docutils literal"><span class="pre">pfnet.Network.add_vargens()</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.adjust_generators">
+<code class="descname">adjust_generators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.adjust_generators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.adjust_generators" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Seealso:</th><td class="field-body"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Network.adjust_generators" title="(in PFNET v1.3)"><code class="xref py py-meth docutils literal"><span class="pre">pfnet.Network.adjust_generators()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.clear_error">
+<code class="descname">clear_error</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.clear_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.clear_error" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Seealso:</th><td class="field-body"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Network.clear_error" title="(in PFNET v1.3)"><code class="xref py py-meth docutils literal"><span class="pre">pfnet.Network.clear_error()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.clear_properties">
+<code class="descname">clear_properties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.clear_properties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.clear_properties" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Seealso:</th><td class="field-body"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Network.clear_properties" title="(in PFNET v1.3)"><code class="xref py py-meth docutils literal"><span class="pre">pfnet.Network.clear_properties()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.clear_sensitivities">
+<code class="descname">clear_sensitivities</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.clear_sensitivities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.clear_sensitivities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.create_sorted_bus_list">
+<code class="descname">create_sorted_bus_list</code><span class="sig-paren">(</span><em>sort_by</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.create_sorted_bus_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.create_sorted_bus_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.create_vargen_P_sigma">
+<code class="descname">create_vargen_P_sigma</code><span class="sig-paren">(</span><em>spread</em>, <em>corr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.create_vargen_P_sigma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.create_vargen_P_sigma" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_network.MPNetwork.delta_t">
+<code class="descname">delta_t</code><em class="property"> = 1</em><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.delta_t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_network.MPNetwork.e_init">
+<code class="descname">e_init</code><em class="property"> = 0</em><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.e_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_network.MPNetwork.end_date">
+<code class="descname">end_date</code><em class="property"> = datetime.datetime(2017, 1, 1, 0, 0)</em><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.end_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_network.MPNetwork.energy_price">
+<code class="descname">energy_price</code><em class="property"> = 35.0</em><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.energy_price" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.generate_load_profiles">
+<code class="descname">generate_load_profiles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.generate_load_profiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.generate_load_profiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>generates load profiles using alpg</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.generate_solar_profiles">
+<code class="descname">generate_solar_profiles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.generate_solar_profiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.generate_solar_profiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates solar profiles using PVWatts</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_adjacency_matrix">
+<code class="descname">get_adjacency_matrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_adjacency_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_adjacency_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">:class:<a href="#id1"><span class="problematic" id="id2">`</span></a>scipy.sparse.coo_matrix</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_battery_projection">
+<code class="descname">get_battery_projection</code><span class="sig-paren">(</span><em>battery</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_battery_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_battery_projection" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a projection matrix that extracts all battery quantities that are defined as variables (<span class="math">\(E, P_c, P_d\)</span>)
+from the state vector of a single problem</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>battery</strong> (<a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Battery" title="(in PFNET v1.3)"><code class="xref py py-class docutils literal"><span class="pre">pfnet.Battery</span></code></a>) &#8211; the battery to create the projection matrix for``</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a <span class="math">\(n \times |x|\)</span> sparse matrix where <span class="math">\(n\)</span> is the number of variables of the battery`</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html#scipy.sparse.coo_matrix" title="(in SciPy v0.17.1)"><code class="xref py py-class docutils literal"><span class="pre">scipy.sparse.coo_matrix</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_battery_var_projection">
+<code class="descname">get_battery_var_projection</code><span class="sig-paren">(</span><em>bus</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_battery_var_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_battery_var_projection" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a projection matrix that extracts the variables (for all t) for all batteries
+connected to the given bus from the state vector x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bus</strong> &#8211; the bus the matrix should be created for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a n x <a href="#id9"><span class="problematic" id="id10">|x|</span></a> sparse matrix where n is the number of variables of all</td>
+</tr>
+</tbody>
+</table>
+<p>batteries ( and all t) and <a href="#id11"><span class="problematic" id="id12">|x|</span></a> is the size of the (multi-period) state vector
+:rtype: <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html#scipy.sparse.coo_matrix" title="(in SciPy v0.17.1)"><code class="xref py py-class docutils literal"><span class="pre">scipy.sparse.coo_matrix</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_branch">
+<code class="descname">get_branch</code><span class="sig-paren">(</span><em>index</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_branch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_branch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_branch_projection">
+<code class="descname">get_branch_projection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_branch_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_branch_projection" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html#scipy.sparse.coo_matrix" title="(in SciPy v0.17.1)"><code class="xref py py-class docutils literal"><span class="pre">scipy.sparse.coo_matrix</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_bus">
+<code class="descname">get_bus</code><span class="sig-paren">(</span><em>index</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_bus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_bus" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets a specific bus for a given time</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>index</strong> (:class:<a href="#id3"><span class="problematic" id="id4">`</span></a>int) &#8211; the bus index</li>
+<li><strong>time</strong> (:class:<a href="#id5"><span class="problematic" id="id6">`</span></a>int) &#8211; the time to get the bus for (defaults to 0)`</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The requested bus</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Bus" title="(in PFNET v1.3)"><code class="xref py py-class docutils literal"><span class="pre">pfnet.Bus</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_bus_by_name">
+<code class="descname">get_bus_by_name</code><span class="sig-paren">(</span><em>name</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_bus_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_bus_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets a specific bus for a given time</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>index</strong> &#8211; the bus name</li>
+<li><strong>time</strong> &#8211; the time to get the bus for (defaults to 0)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a pfnet bus object</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Bus" title="(in PFNET v1.3)"><code class="xref py py-class docutils literal"><span class="pre">pfnet.Bus</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_bus_by_number">
+<code class="descname">get_bus_by_number</code><span class="sig-paren">(</span><em>number</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_bus_by_number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_bus_by_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets a specific bus for a given time</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>index</strong> &#8211; the bus number</li>
+<li><strong>time</strong> &#8211; the time to get the bus for (defaults to 0)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a pfnet bus object</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Bus" title="(in PFNET v1.3)"><code class="xref py py-class docutils literal"><span class="pre">pfnet.Bus</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_coupling_ang_projection">
+<code class="descname">get_coupling_ang_projection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_coupling_ang_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_coupling_ang_projection" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_gen">
+<code class="descname">get_gen</code><span class="sig-paren">(</span><em>index</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets a specific generator for a given time</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>index</strong> &#8211; the generator index</li>
+<li><strong>time</strong> &#8211; the time to get the generator for (defaults to 0)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a pfnet generator object</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Generator" title="(in PFNET v1.3)"><code class="xref py py-class docutils literal"><span class="pre">pfnet.Generator</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_gen_buses">
+<code class="descname">get_gen_buses</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_gen_buses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_gen_buses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_load">
+<code class="descname">get_load</code><span class="sig-paren">(</span><em>index</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets a specific load for a given time</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>index</strong> &#8211; the load index</li>
+<li><strong>time</strong> &#8211; the time to get the load for (defaults to 0)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a pfnet load object</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Load" title="(in PFNET v1.3)"><code class="xref py py-class docutils literal"><span class="pre">pfnet.Load</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_load_buses">
+<code class="descname">get_load_buses</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_load_buses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_load_buses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_network">
+<code class="descname">get_network</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_network"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the pfnet network for a given time</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>time</strong> &#8211; the time to get the network for (default: 0)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a pfnet network object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Network" title="(in PFNET v1.3)"><code class="xref py py-class docutils literal"><span class="pre">pfnet.Network</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_P_adjust_gens">
+<code class="descname">get_num_P_adjust_gens</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_P_adjust_gens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_P_adjust_gens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_P_adjust_loads">
+<code class="descname">get_num_P_adjust_loads</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_P_adjust_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_P_adjust_loads" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_branches">
+<code class="descname">get_num_branches</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_branches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_branches" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_branches_not_on_outage">
+<code class="descname">get_num_branches_not_on_outage</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_branches_not_on_outage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_branches_not_on_outage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_buses">
+<code class="descname">get_num_buses</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_buses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_buses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_buses_reg_by_gen">
+<code class="descname">get_num_buses_reg_by_gen</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_buses_reg_by_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_buses_reg_by_gen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_buses_reg_by_shunt">
+<code class="descname">get_num_buses_reg_by_shunt</code><span class="sig-paren">(</span><em>only=False</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_buses_reg_by_shunt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_buses_reg_by_shunt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_buses_reg_by_tran">
+<code class="descname">get_num_buses_reg_by_tran</code><span class="sig-paren">(</span><em>only=False</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_buses_reg_by_tran"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_buses_reg_by_tran" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_fixed_shunts">
+<code class="descname">get_num_fixed_shunts</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_fixed_shunts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_fixed_shunts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_fixed_trans">
+<code class="descname">get_num_fixed_trans</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_fixed_trans"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_fixed_trans" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_gens">
+<code class="descname">get_num_gens</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_gens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_gens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_gens_not_on_outage">
+<code class="descname">get_num_gens_not_on_outage</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_gens_not_on_outage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_gens_not_on_outage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_lines">
+<code class="descname">get_num_lines</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_lines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_loads">
+<code class="descname">get_num_loads</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_loads" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_phase_shifters">
+<code class="descname">get_num_phase_shifters</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_phase_shifters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_phase_shifters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_reg_gens">
+<code class="descname">get_num_reg_gens</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_reg_gens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_reg_gens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_shunts">
+<code class="descname">get_num_shunts</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_shunts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_shunts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_slack_buses">
+<code class="descname">get_num_slack_buses</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_slack_buses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_slack_buses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_slack_gens">
+<code class="descname">get_num_slack_gens</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_slack_gens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_slack_gens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_switched_shunts">
+<code class="descname">get_num_switched_shunts</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_switched_shunts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_switched_shunts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_tap_changers">
+<code class="descname">get_num_tap_changers</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_tap_changers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_tap_changers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_tap_changers_Q">
+<code class="descname">get_num_tap_changers_Q</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_tap_changers_Q"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_tap_changers_Q" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_tap_changers_v">
+<code class="descname">get_num_tap_changers_v</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_tap_changers_v"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_tap_changers_v" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_num_vargens">
+<code class="descname">get_num_vargens</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_num_vargens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_num_vargens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_power_balance_projection">
+<code class="descname">get_power_balance_projection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_power_balance_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_power_balance_projection" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_projection_matrix">
+<code class="descname">get_projection_matrix</code><span class="sig-paren">(</span><em>buses</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_projection_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_projection_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the projection matrices for a list of buses</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>buses</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_properties">
+<code class="descname">get_properties</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_properties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_properties" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_shunt">
+<code class="descname">get_shunt</code><span class="sig-paren">(</span><em>index</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_shunt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_shunt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_var_projection">
+<code class="descname">get_var_projection</code><span class="sig-paren">(</span><em>obj_type</em>, <em>var</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_var_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_var_projection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_var_values">
+<code class="descname">get_var_values</code><span class="sig-paren">(</span><em>code=0</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_var_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_var_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_vargen">
+<code class="descname">get_vargen</code><span class="sig-paren">(</span><em>index</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_vargen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_vargen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.get_vargen_by_name">
+<code class="descname">get_vargen_by_name</code><span class="sig-paren">(</span><em>name</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.get_vargen_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.get_vargen_by_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.has_error">
+<code class="descname">has_error</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.has_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.has_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.load_load_profile_from_csv">
+<code class="descname">load_load_profile_from_csv</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.load_load_profile_from_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.load_load_profile_from_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>loads a load profile <a href="#id7"><span class="problematic" id="id8">`</span></a>from a csv file and updates the network accordingly.
+This also takes care of the conversion according to the base power.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) &#8211; the path to the CSV file</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_network.MPNetwork.load_profile_map">
+<code class="descname">load_profile_map</code><em class="property"> = {}</em><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.load_profile_map" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_network.MPNetwork.networks">
+<code class="descname">networks</code><em class="property"> = {}</em><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.networks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_network.MPNetwork.num_vars">
+<code class="descname">num_vars</code><em class="property"> = None</em><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.num_vars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.set_flags">
+<code class="descname">set_flags</code><span class="sig-paren">(</span><em>obj_type</em>, <em>flags</em>, <em>props</em>, <em>vals</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.set_flags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.set_flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets flags of networks components with specific properties.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>obj_type</strong> &#8211; Component Types</li>
+<li><strong>flags</strong> &#8211; Flag Marks</li>
+<li><strong>props</strong> &#8211; </li>
+<li><strong>vals</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Seealso:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Network.set_flags" title="(in PFNET v1.3)"><code class="xref py py-meth docutils literal"><span class="pre">pfnet.Network.set_flags()</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.set_flags_of_component">
+<code class="descname">set_flags_of_component</code><span class="sig-paren">(</span><em>obj</em>, <em>flags</em>, <em>vals</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.set_flags_of_component"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.set_flags_of_component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets flags of networks components with specific properties.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>obj</strong> &#8211; </li>
+<li><strong>flags</strong> &#8211; </li>
+<li><strong>vals</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Seealso:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Network.set_flags_of_component" title="(in PFNET v1.3)"><code class="xref py py-meth docutils literal"><span class="pre">pfnet.Network.set_flags_of_component()</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.set_prices">
+<code class="descname">set_prices</code><span class="sig-paren">(</span><em>price_vector</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.set_prices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.set_prices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the price attribute of the buses to the values given</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>price_vector</strong> &#8211; A vector of prices that has at least as many entries as there are time steps</td>
+</tr>
+</tbody>
+</table>
+<p>in the network. Prices in EUR/Base Power</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.set_var_values">
+<code class="descname">set_var_values</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.set_var_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.set_var_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.show_buses">
+<code class="descname">show_buses</code><span class="sig-paren">(</span><em>number</em>, <em>sort_by</em>, <em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.show_buses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.show_buses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.show_components">
+<code class="descname">show_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.show_components"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.show_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the components of the networks.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Seealso:</th><td class="field-body"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Network.show_components" title="(in PFNET v1.3)"><code class="xref py py-meth docutils literal"><span class="pre">pfnet.Network.show_components()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.show_properties">
+<code class="descname">show_properties</code><span class="sig-paren">(</span><em>time=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.show_properties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.show_properties" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_network.MPNetwork.solar_profile_map">
+<code class="descname">solar_profile_map</code><em class="property"> = {}</em><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.solar_profile_map" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_network.MPNetwork.start_date">
+<code class="descname">start_date</code><em class="property"> = datetime.datetime(2016, 1, 1, 0, 0)</em><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.start_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_network.MPNetwork.timesteps">
+<code class="descname">timesteps</code><em class="property"> = 8760</em><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.timesteps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.update_properties">
+<code class="descname">update_properties</code><span class="sig-paren">(</span><em>values=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.update_properties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.update_properties" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_network.MPNetwork.update_set_points">
+<code class="descname">update_set_points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_network.html#MPNetwork.update_set_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_network.MPNetwork.update_set_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-mppfnet.mp_problem">
+<span id="mppfnet-mp-problem-module"></span><h2>mppfnet.mp_problem module<a class="headerlink" href="#module-mppfnet.mp_problem" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="mppfnet.mp_problem.MPProblem">
+<em class="property">class </em><code class="descclassname">mppfnet.mp_problem.</code><code class="descname">MPProblem</code><span class="sig-paren">(</span><em>network</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="mppfnet.mp_problem.MPProblem.A">
+<code class="descname">A</code><em class="property"> = None</em><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.A" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_problem.MPProblem.Hphi">
+<code class="descname">Hphi</code><em class="property"> = None</em><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.Hphi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.add_constraint">
+<code class="descname">add_constraint</code><span class="sig-paren">(</span><em>constraint_type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.add_constraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.add_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.add_function">
+<code class="descname">add_function</code><span class="sig-paren">(</span><em>function_type</em>, <em>weight</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.add_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.add_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.analyze">
+<code class="descname">analyze</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.analyze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.analyze" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Seealso:</th><td class="field-body"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Problem.analyze" title="(in PFNET v1.3)"><code class="xref py py-meth docutils literal"><span class="pre">pfnet.Problem.analyze()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_problem.MPProblem.b">
+<code class="descname">b</code><em class="property"> = None</em><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.b" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.clear" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Seealso:</th><td class="field-body"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Problem.clear" title="(in PFNET v1.3)"><code class="xref py py-meth docutils literal"><span class="pre">pfnet.Problem.clear()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.combine_H">
+<code class="descname">combine_H</code><span class="sig-paren">(</span><em>coeff</em>, <em>ensure_psd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.combine_H"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.combine_H" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>coeff</strong> &#8211; </li>
+<li><strong>ensure_psd</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Seealso:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Problem.combine_H" title="(in PFNET v1.3)"><code class="xref py py-meth docutils literal"><span class="pre">pfnet.Problem.combine_H()</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_problem.MPProblem.constraints">
+<code class="descname">constraints</code><em class="property"> = []</em><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.construct_subproblems">
+<code class="descname">construct_subproblems</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.construct_subproblems"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.construct_subproblems" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.eval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.find_constraint">
+<code class="descname">find_constraint</code><span class="sig-paren">(</span><em>selfm</em>, <em>type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.find_constraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.find_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.get_battery_A">
+<code class="descname">get_battery_A</code><span class="sig-paren">(</span><em>battery</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.get_battery_A"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.get_battery_A" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the rows of the A matrix representing the battery constraints of the given battery object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>battery</strong> (<a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Battery" title="(in PFNET v1.3)"><code class="xref py py-class docutils literal"><span class="pre">pfnet.Battery</span></code></a>) &#8211; The battery object the constraints are for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The rows that are added to the A matrix</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.get_battery_b">
+<code class="descname">get_battery_b</code><span class="sig-paren">(</span><em>battery</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.get_battery_b"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.get_battery_b" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>battery</strong> (<a class="reference external" href="http://ttinoco.github.io/PFNET/python/reference.html#pfnet.Battery" title="(in PFNET v1.3)"><code class="xref py py-class docutils literal"><span class="pre">pfnet.Battery</span></code></a>) &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.get_coupling_A">
+<code class="descname">get_coupling_A</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.get_coupling_A"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.get_coupling_A" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html#scipy.sparse.coo_matrix" title="(in SciPy v0.17.1)"><code class="xref py py-class docutils literal"><span class="pre">scipy.sparse.coo_matrix</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.get_init_point">
+<code class="descname">get_init_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.get_init_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.get_init_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.get_local_constraints">
+<code class="descname">get_local_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.get_local_constraints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.get_local_constraints" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.get_lower_limits">
+<code class="descname">get_lower_limits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.get_lower_limits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.get_lower_limits" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.get_network">
+<code class="descname">get_network</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.get_network"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.get_network" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.get_upper_limits">
+<code class="descname">get_upper_limits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.get_upper_limits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.get_upper_limits" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_problem.MPProblem.gphi">
+<code class="descname">gphi</code><em class="property"> = None</em><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.gphi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_problem.MPProblem.l">
+<code class="descname">l</code><em class="property"> = None</em><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.l" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_problem.MPProblem.net">
+<code class="descname">net</code><em class="property"> = None</em><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.net" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_problem.MPProblem.problems">
+<code class="descname">problems</code><em class="property"> = {}</em><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.problems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.set_network">
+<code class="descname">set_network</code><span class="sig-paren">(</span><em>net</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.set_network"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.set_network" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.show">
+<code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.store_sensitivities">
+<code class="descname">store_sensitivities</code><span class="sig-paren">(</span><em>sA</em>, <em>sf</em>, <em>sGu</em>, <em>sGl</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.store_sensitivities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.store_sensitivities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_problem.MPProblem.u">
+<code class="descname">u</code><em class="property"> = None</em><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.u" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.mp_problem.MPProblem.update_lin">
+<code class="descname">update_lin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/mp_problem.html#MPProblem.update_lin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.update_lin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.mp_problem.MPProblem.x">
+<code class="descname">x</code><em class="property"> = None</em><a class="headerlink" href="#mppfnet.mp_problem.MPProblem.x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-mppfnet.projection_tests">
+<span id="mppfnet-projection-tests-module"></span><h2>mppfnet.projection_tests module<a class="headerlink" href="#module-mppfnet.projection_tests" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="mppfnet.projection_tests.MyTestCase">
+<em class="property">class </em><code class="descclassname">mppfnet.projection_tests.</code><code class="descname">MyTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/projection_tests.html#MyTestCase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.projection_tests.MyTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="method">
+<dt id="mppfnet.projection_tests.MyTestCase.test_something">
+<code class="descname">test_something</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/projection_tests.html#MyTestCase.test_something"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.projection_tests.MyTestCase.test_something" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-mppfnet.solar_profile">
+<span id="mppfnet-solar-profile-module"></span><h2>mppfnet.solar_profile module<a class="headerlink" href="#module-mppfnet.solar_profile" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="mppfnet.solar_profile.SolarProfile">
+<em class="property">class </em><code class="descclassname">mppfnet.solar_profile.</code><code class="descname">SolarProfile</code><a class="reference internal" href="_modules/mppfnet/solar_profile.html#SolarProfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="mppfnet.solar_profile.SolarProfile.address">
+<code class="descname">address</code><em class="property"> = 'San Diego'</em><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile.address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.solar_profile.SolarProfile.api_key">
+<code class="descname">api_key</code><em class="property"> = '01afy2HxYxnSamxe7Z24eto4qXAs30YZLf5hmJZj'</em><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile.api_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.solar_profile.SolarProfile.array_type">
+<code class="descname">array_type</code><em class="property"> = 1</em><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile.array_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.solar_profile.SolarProfile.azimuth">
+<code class="descname">azimuth</code><em class="property"> = 190</em><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile.azimuth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.solar_profile.SolarProfile.format">
+<code class="descname">format</code><em class="property"> = 'json'</em><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile.format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="mppfnet.solar_profile.SolarProfile.get_generation_profile">
+<code class="descname">get_generation_profile</code><span class="sig-paren">(</span><em>start_date=None</em>, <em>end_date=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mppfnet/solar_profile.html#SolarProfile.get_generation_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile.get_generation_profile" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>start_date</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/datetime.html#datetime.datetime" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code></a>) &#8211; inclusive that date</li>
+<li><strong>end_date</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/datetime.html#datetime.datetime" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code></a>) &#8211; exclusive that date</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a array with the solar profile in hourly resolution for a standardized meteorological year.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.solar_profile.SolarProfile.losses">
+<code class="descname">losses</code><em class="property"> = 0</em><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile.losses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.solar_profile.SolarProfile.module_type">
+<code class="descname">module_type</code><em class="property"> = 0</em><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile.module_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.solar_profile.SolarProfile.pv_watts">
+<code class="descname">pv_watts</code><em class="property"> = None</em><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile.pv_watts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.solar_profile.SolarProfile.system_capacity">
+<code class="descname">system_capacity</code><em class="property"> = 1</em><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile.system_capacity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.solar_profile.SolarProfile.tilt">
+<code class="descname">tilt</code><em class="property"> = 30</em><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile.tilt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mppfnet.solar_profile.SolarProfile.timeframe">
+<code class="descname">timeframe</code><em class="property"> = 'hourly'</em><a class="headerlink" href="#mppfnet.solar_profile.SolarProfile.timeframe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-mppfnet">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mppfnet" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">mppfnet package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-mppfnet.load_profile">mppfnet.load_profile module</a></li>
+<li><a class="reference internal" href="#module-mppfnet.mp_network">mppfnet.mp_network module</a></li>
+<li><a class="reference internal" href="#module-mppfnet.mp_problem">mppfnet.mp_problem module</a></li>
+<li><a class="reference internal" href="#module-mppfnet.projection_tests">mppfnet.projection_tests module</a></li>
+<li><a class="reference internal" href="#module-mppfnet.solar_profile">mppfnet.solar_profile module</a></li>
+<li><a class="reference internal" href="#module-mppfnet">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/mppfnet.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Martin Zellner.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/mppfnet.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
