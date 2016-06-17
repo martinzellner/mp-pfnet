@@ -3,7 +3,7 @@ Multi-Period Power Flow Network Package
 
 ## Documentation
 
-[Documentation for mp-pfnet](http://mp-pfnet.readthedocs.io/en/latest/)
+[Documentation for mp-pfnet](https://martinzellner.github.io/mp-pfnet/index.html)
 
 ## Requirements
   
