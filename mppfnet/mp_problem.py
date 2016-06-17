@@ -35,6 +35,10 @@ class MPProblem():
             self.problems[t].add_function(function_type, weight)
 
     def analyze(self):
+        """
+
+        :seealso: :meth:`pfnet.Problem.analyze`
+        """
         for t in range(self.net.timesteps):
             self.problems[t].analyze()
 
@@ -70,10 +74,20 @@ class MPProblem():
         self.u = np.hstack([self.problems[i].u for i in range(self.timesteps)])
 
     def clear(self):
+        """
+
+        :seealso: :meth:`pfnet.Problem.clear`
+        """
         for t in range(self.net.timesteps):
             self.problems[t].clear()
 
     def combine_H(self, coeff, ensure_psd):
+        """
+
+        :param coeff:
+        :param ensure_psd:
+        :seealso: :meth:`pfnet.Problem.combine_H`
+        """
         pass
         # TODO
 
@@ -120,7 +134,9 @@ class MPProblem():
     def get_battery_A(self, battery):
         """
         returns the rows of the A matrix representing the battery constraints of the given battery object.
+
         :param battery: The battery object the constraints are for
+        :type battery: :class:`pfnet.Battery`
         :return: The rows that are added to the A matrix
         """
 
@@ -157,6 +173,12 @@ class MPProblem():
         return a
 
     def get_battery_b(self, battery):
+        """
+
+        :param battery:
+        :type battery: :class:`pfnet.Battery`
+        :return:
+        """
         #b = np.zeros((self.net.timesteps+1,))
         b = np.zeros((self.net.timesteps,))
 
@@ -165,12 +187,21 @@ class MPProblem():
         return b
 
     def construct_subproblems(self):
+        """
+
+        :return:
+        """
         for t in range(self.net.timesteps):
             p = pfnet.Problem()
             p.set_network(self.net.get_network(time=t))
             self.problems[t] = p
 
     def get_coupling_A(self):
+        """
+
+        :return:
+        :rtype: :class:`scipy.sparse.coo_matrix`
+        """
         net = self.net.get_network()
 
         a_i_matrices = dict()
@@ -206,6 +237,10 @@ class MPProblem():
         return a_i_matrices
 
     def get_local_constraints(self):
+        """
+
+        :return:
+        """
         net = self.net.get_network()
         local_constraints = dict()
         for bus in net.buses:

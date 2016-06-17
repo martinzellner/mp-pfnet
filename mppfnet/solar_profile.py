@@ -1,5 +1,4 @@
 from pypvwatts import PVWatts
-import datetime
 
 
 class SolarProfile():
@@ -21,8 +20,10 @@ class SolarProfile():
 
     def get_generation_profile(self, start_date=None, end_date=None):
         """
-        start_date: inclusive that date
-        end_date: exclusive that date
+        :param start_date: inclusive that date
+        :type start_date: :class:`datetime.datetime`
+        :param end_date: exclusive that date
+        :type end_date: :class:`datetime.datetime`
 
         :return: a array with the solar profile in hourly resolution for a standardized meteorological year.
         """

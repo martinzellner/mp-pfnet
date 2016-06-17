@@ -23,7 +23,9 @@ class MPNetwork():
     def __init__(self, timesteps=8760):
         """
         Instanciates a new multi-period pfnet network.
+
         :param timesteps: The number of timesteps the network is created for
+        :type timesteps: :class:`int
         """
         self.timesteps = timesteps
         for i in range(self.timesteps):
@@ -34,28 +36,37 @@ class MPNetwork():
 
     def add_vargens(self, buses, penetration, uncertainty, corr_radius, corr_value):
         """
-        Add a variable generator (PV, Wind, etc.) to the network
+        Add a variable generator (PV, Wind, etc.) to the network`
+
         :param buses: The buses the generators should be added to
         :param penetration:
         :param uncertainty:
         :param corr_radius:
         :param corr_value:
+
+        :seealso: :meth:`pfnet.Network.add_vargens()`
         """
         for network in self.networks:
             network.add_vargens(buses, penetration, uncertainty, corr_radius, corr_value)
 
     def adjust_generators(self):
         """
-
+        :seealso: :meth:`pfnet.Network.adjust_generators()`
         """
         for network in self.networks:
             network.adjust_generators()
 
     def clear_error(self):
+        """
+        :seealso: :meth:`pfnet.Network.clear_error`
+        """
         for network in self.networks:
             network.clear_error()
 
     def clear_properties(self):
+        """
+        :seealso: :meth:`pfnet.Network.clear_properties`
+        """
         for network in self.networks:
             network.clear_properties()
 
@@ -76,36 +87,46 @@ class MPNetwork():
     def get_bus(self, index, time=0):
         """
         gets a specific bus for a given time
+
         :param index: the bus index
-        :param time: the time to get the bus for (defaults to 0)
-        :return: a pfnet bus object
+        :type index: :class:`int
+        :param time: the time to get the bus for (defaults to 0)`
+        :type time: :class:`int
+        :return: The requested bus
+        :rtype: :class:`pfnet.Bus`
         """
         return self.networks[time].get_bus(index)
 
     def get_bus_by_name(self, name, time=0):
         """
         gets a specific bus for a given time
+
         :param index: the bus name
         :param time: the time to get the bus for (defaults to 0)
         :return: a pfnet bus object
+        :rtype: :class:`pfnet.Bus`
         """
         return self.networks[time].get_bus_by_name(name)
 
     def get_bus_by_number(self, number, time=0):
         """
         gets a specific bus for a given time
+
         :param index: the bus number
         :param time: the time to get the bus for (defaults to 0)
         :return: a pfnet bus object
+        :rtype: :class:`pfnet.Bus`
         """
         return self.networks[time].get_bus_by_number(number)
 
     def get_gen(self, index, time=0):
         """
         gets a specific generator for a given time
+
         :param index: the generator index
         :param time: the time to get the generator for (defaults to 0)
         :return: a pfnet generator object
+        :rtype: :class:`pfnet.Generator`
         """
         return self.networks[time].get_gen(index)
 
@@ -115,9 +136,11 @@ class MPNetwork():
     def get_load(self, index, time=0):
         """
         gets a specific load for a given time
+
         :param index: the load index
         :param time: the time to get the load for (defaults to 0)
         :return: a pfnet load object
+        :rtype: :class:`pfnet.Load`
         """
         return self.networks[time].get_load(index)
 
@@ -232,10 +255,13 @@ class MPNetwork():
     def set_flags(self, obj_type, flags, props, vals):
         """
         Sets flags of networks components with specific properties.
+
         :param obj_type: Component Types
         :param flags: Flag Marks
         :param props:
         :param vals:
+
+        :seealso: :meth:`pfnet.Network.set_flags`
         """
         for i in range(self.timesteps):
             self.networks[i].set_flags(obj_type, flags, props, vals)
@@ -246,9 +272,13 @@ class MPNetwork():
     def set_flags_of_component(self, obj, flags, vals):
         """
         Sets flags of networks components with specific properties.
+
         :param obj:
         :param flags:
         :param vals:
+
+        :seealso: :meth:`pfnet.Network.set_flags_of_component`
+
         """
         for i in range(self.timesteps):
             self.networks[i].set_flags_of_component(obj, flags, vals)
@@ -263,7 +293,10 @@ class MPNetwork():
 
     def show_components(self):
         """
-        Shows the components of the networks
+        Prints the components of the networks.
+
+        :seealso: :meth:`pfnet.Network.show_components`
+
         """
         net = self.networks[0]
 
@@ -313,14 +346,17 @@ class MPNetwork():
     def get_network(self, time=0):
         """
         get the pfnet network for a given time
+
         :param time: the time to get the network for (default: 0)
         :return: a pfnet network object
+        :rtype: :class:`pfnet.Network`
         """
         return self.networks[time]
 
     def generate_load_profiles(self):
         """
         generates load profiles using alpg
+
         """
         for i in range(self.networks[0].num_loads):
             self.load_profile_map[i] = load_profile.LoadProfile().get_load_profile()
@@ -332,6 +368,7 @@ class MPNetwork():
     def generate_solar_profiles(self):
         """
         Generates solar profiles using PVWatts
+
         """
         for i in range(self.networks[0].num_vargens):
             self.solar_profile_map[i] = solar_profile.SolarProfile().get_generation_profile()
@@ -342,8 +379,10 @@ class MPNetwork():
 
     def set_prices(self, price_vector):
         """
-        set the price attribute of the buses to the values given.
-        :param price_vector: A vector of prices that has at least as many entries as there are time steps in the network. Prices in EUR/Base Power
+        Set the price attribute of the buses to the values given
+
+        :param price_vector: A vector of prices that has at least as many entries as there are time steps
+        in the network. Prices in EUR/Base Power
         """
         for i in range(self.timesteps):
             for bus in self.networks[i].buses:
@@ -351,6 +390,11 @@ class MPNetwork():
                     bus.price = price_vector[i]
 
     def get_adjacency_matrix(self):
+        """
+
+        :return:
+        :rtype: :class:`scipy.sparse.coo_matrix
+        """
         nb = self.get_network().get_num_buses()
         rows = []
         columns = []
@@ -369,8 +413,11 @@ class MPNetwork():
 
     def load_load_profile_from_csv(self, filename):
         """
-        loads a load profile from a csv file and updates the network accordingly. This also takes care of the conversion according to the base power.
+        loads a load profile `from a csv file and updates the network accordingly.
+        This also takes care of the conversion according to the base power.
+
         :param filename: the path to the CSV file
+        :type filename: :class:`str`
         """
         with open(filename, newline="") as csvfile:
             reader = csv.reader(csvfile, delimiter=';', quotechar='|')
@@ -383,6 +430,7 @@ class MPNetwork():
     def get_projection_matrix(self, buses):
         """
         get the projection matrices for a list of buses
+
         :param buses:
         :return:
         """
@@ -508,6 +556,11 @@ class MPNetwork():
         return (sim_p_mats, sim_p_ang, sim_p_x)
 
     def get_power_balance_projection(self):
+        """
+
+
+        :return:
+        """
         p_pbs = dict()  # projection matrix to select the power balance from A
         for bus in filter(lambda bus: (not bus.is_slack()), self.get_network().buses):
             p_pb = scipy.sparse.coo_matrix(([1], ([0], [bus.index])),
@@ -518,6 +571,11 @@ class MPNetwork():
         return p_pbs
 
     def get_coupling_ang_projection(self):
+        """
+
+
+        :return:
+        """
         p_zs = dict()
         for bus in filter(lambda bus: (not bus.is_slack()), self.get_network().buses):
             adj_buses = []
@@ -536,8 +594,12 @@ class MPNetwork():
             p_zs[bus.index] = scipy.sparse.block_diag([p_z for i in range(self.timesteps)])
         return p_zs
 
-
     def get_branch_projection(self):
+        """
+
+        :return:
+        :rtype: :class:`scipy.sparse.coo_matrix`
+        """
         p_bs = dict()
         for bus in self.get_network().buses:
             cols, rows, data = [], [], []
@@ -551,12 +613,16 @@ class MPNetwork():
             p_bs[bus.index] = scipy.sparse.block_diag([p_b] * self.timesteps)
         return p_bs
 
-
     def get_battery_var_projection(self, bus):
         """
-        creates a projection matrix that extracts the variables (for all t) for all batteries connected to the given bus from the state vector x
+        creates a projection matrix that extracts the variables (for all t) for all batteries
+        connected to the given bus from the state vector x
+
         :param bus: the bus the matrix should be created for
-        :return: a n x |x| sparse matrix where n is the number of variables of all batteries ( and all t) and |x| is the size of the (multi-period) state vector
+        :return: a n x |x| sparse matrix where n is the number of variables of all
+        batteries ( and all t) and |x| is the size of the (multi-period) state vector
+        :rtype: :class:`scipy.sparse.coo_matrix`
+
         """
         # project all battery variables for the given bus
         p_bat = scipy.sparse.hstack([self.get_battery_projection(battery) for battery in bus.bats])
@@ -567,9 +633,13 @@ class MPNetwork():
 
     def get_battery_projection(self, battery):
         """
-        creates a projection matrix that extracts all battery quantities that are defined as variables (E, Pc, Pd) from the state vector of a single problem
-        :param battery: the battery to create the projection matrix for
-        :return: a n x |x| sparse matrix where n is the number of variables of the battery
+        creates a projection matrix that extracts all battery quantities that are defined as variables (:math:`E, P_c, P_d`)
+        from the state vector of a single problem
+
+        :param battery: the battery to create the projection matrix for``
+        :type battery: :class:`pfnet.Battery`
+        :return: a :math:`n \\times |x|` sparse matrix where :math:`n` is the number of variables of the battery`
+        :rtype: :class:`scipy.sparse.coo_matrix`
         """
         rows, cols, data = [], [], []
         num_vars = 0
