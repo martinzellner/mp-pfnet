@@ -559,7 +559,7 @@ class MPNetwork():
         :return: a n x |x| sparse matrix where n is the number of variables of all batteries ( and all t) and |x| is the size of the (multi-period) state vector
         """
         # project all battery variables for the given bus
-        p_bat = scipy.sparse.hstack([self.get_battery_projection(battery) for battery in bus.batteries])
+        p_bat = scipy.sparse.hstack([self.get_battery_projection(battery) for battery in bus.bats])
 
         # create blockdiagonal matrix with multiple timesteps
         p_bat_mp = scipy.sparse.block_diag([p_bat] * self.timesteps)
