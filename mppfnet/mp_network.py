@@ -4,7 +4,7 @@ from datetime import datetime
 import pfnet
 import scipy
 import numpy as np
-#from . import load_profile
+from . import load_profile
 from . import solar_profile
 
 
@@ -33,6 +33,14 @@ class MPNetwork():
 
     def __str__(self):
         return "Multi-Period Network with {0} timesteps".format(self.timesteps)
+
+    @property
+    def nx_total(self):
+        return self.get_network().num_vars * self.timesteps
+
+    @property
+    def nx(self):
+        return self.get_network().num_vars
 
     def add_vargens(self, buses, penetration, uncertainty, corr_radius, corr_value):
         """
@@ -283,10 +291,12 @@ class MPNetwork():
         for i in range(self.timesteps):
             self.networks[i].set_flags_of_component(obj, flags, vals)
 
-    def set_var_values(self, values):
-        for i in range(self.timesteps):
-            nx = self.num_vars // self.timesteps
-            self.networks[i].set_var_values(values[i * nx:i * nx + nx])
+    def set_var_values(self, values, simulation_time=None):
+
+        simulation_time = range(self.timesteps) if simulation_time is None else simulation_time
+
+        for tau, t in enumerate(simulation_time):
+            self.networks[t].set_var_values(values[tau * self.nx:tau * self.nx + self.nx])
 
     def show_buses(self, number, sort_by, time=0):
         self.networks[time].show_buses(number, sort_by)
@@ -330,13 +340,14 @@ class MPNetwork():
     def show_properties(self, time=0):
         self.networks[time].show_properties()
 
-    def update_properties(self, values=None):
-        for i in range(self.timesteps):
-            nx = self.num_vars // self.timesteps
+    def update_properties(self, values=None, simulation_time=None):
+        simulation_time = range(self.timesteps) if simulation_time is None else simulation_time
+        # tau is the index for the (possibly smaller) simulation time)
+        for tau, t in enumerate(simulation_time):
             if values is not None:
-                self.networks[i].update_properties(values[i * nx:i * nx + nx])
+                self.networks[t].update_properties(values[tau * self.nx:tau * self.nx + self.nx])
             else:
-                self.networks[i].update_properties()
+                self.networks[t].update_properties()
 
     def update_set_points(self):
         for network in self.networks:
@@ -361,9 +372,9 @@ class MPNetwork():
         for i in range(self.networks[0].num_loads):
             self.load_profile_map[i] = load_profile.LoadProfile().get_load_profile()
 
-            for n in range(self.timesteps):
-                load = self.get_load(i, n)
-                load.P = self.load_profile_map[i][n] / (self.networks[n].base_power * 1e6)  # convert to p.u.
+            for t in range(self.timesteps):
+                load = self.get_load(i, t)
+                load.P = self.load_profile_map[i][t] / (self.networks[t].base_power * 1e6)  # convert to p.u.
 
     def generate_solar_profiles(self):
         """
@@ -373,9 +384,9 @@ class MPNetwork():
         for i in range(self.networks[0].num_vargens):
             self.solar_profile_map[i] = solar_profile.SolarProfile().get_generation_profile()
 
-            for n in range(self.timesteps):
-                generator = self.get_vargen(i, n)
-                generator.P = self.solar_profile_map[i][n] / (self.networks[n].base_power * 1e6)  # convert to p.u.
+            for t in range(self.timesteps):
+                generator = self.get_vargen(i, t)
+                generator.P = self.solar_profile_map[i][t] / (self.networks[t].base_power * 1e6)  # convert to p.u.
 
     def set_prices(self, price_vector):
         """
@@ -384,10 +395,9 @@ class MPNetwork():
         :param price_vector: A vector of prices that has at least as many entries as there are time steps
         in the network. Prices in EUR/Base Power
         """
-        for i in range(self.timesteps):
-            for bus in self.networks[i].buses:
-                if not bus.is_slack():
-                    bus.price = price_vector[i]
+        for t in range(self.timesteps):
+            for bus in filter(lambda bus: not bus.is_slack(), self.networks[t].buses):
+                bus.price = price_vector[t]
 
     def get_adjacency_matrix(self):
         """
@@ -408,8 +418,6 @@ class MPNetwork():
             columns.append(branch.bus_from.index)
             data.append(branch.b)
         return scipy.sparse.coo_matrix((data, (rows, columns)), shape=(nb, nb))
-
-
 
     def load_load_profile_from_csv(self, filename):
         """
@@ -535,17 +543,7 @@ class MPNetwork():
             p_x[bus.index] = scipy.sparse.coo_matrix((data_x, (rows_x, cols_x)),
                                                     shape=(num_vars, self.get_network().num_vars))
 
-        # check matrices
-        n_var = 0
-        #for bus in filter(lambda bus: (not bus.is_slack()), self.get_network().buses):
-        #    index = bus.index
-        #    num_gens = len(list(filter(lambda gen: gen.has_flags(pfnet.FLAG_VARS, pfnet.GEN_VAR_P), bus.gens)))
-        #    num_vargens = len(list(filter(lambda vargen: vargen.has_flags(pfnet.FLAG_VARS, pfnet.VARGEN_VAR_P), bus.vargens)))
-        #    local_variables = num_vargens + len(bus.bats) * 3 + num_gens
-        #    angles = 1 + bus.degree
-        #    n_var += 1 + local_variables
-            #assert (p_mats[index].shape == (local_variables + angles, self.get_network().num_vars))
-            #assert (p_ang[index].shape == (angles, local_variables + angles))
+
         sim_p_mats, sim_p_ang, sim_p_x= dict(), dict(), dict()
 
         for bus in filter(lambda bus: (not bus.is_slack()), self.get_network().buses):
@@ -566,16 +564,19 @@ class MPNetwork():
             p_pb = scipy.sparse.coo_matrix(([1], ([0], [bus.index])),
                                                           shape=(1, self.get_num_buses()))
             # stack matrix
-            p_pbs[bus.index] = scipy.sparse.block_diag([p_pb for i in range(self.timesteps)])
+            p_pbs[bus.index] = scipy.sparse.block_diag([p_pb] * self.timesteps)
 
         return p_pbs
 
-    def get_coupling_ang_projection(self):
+    def get_coupling_ang_projection(self, horizon=None):
         """
 
 
         :return:
         """
+
+        horizon = self.timesteps if horizon is None else horizon
+
         p_zs = dict()
         for bus in filter(lambda bus: (not bus.is_slack()), self.get_network().buses):
             adj_buses = []
@@ -591,15 +592,19 @@ class MPNetwork():
                 data += [1]
             p_z = scipy.sparse.coo_matrix((data, (rows, cols)), shape=(len(adj_buses), self.get_network().num_buses - 1))
 
-            p_zs[bus.index] = scipy.sparse.block_diag([p_z for i in range(self.timesteps)])
+            p_zs[bus.index] = scipy.sparse.block_diag([p_z] * horizon)
         return p_zs
 
-    def get_branch_projection(self):
+    def get_branch_projection(self, horizon=None):
         """
 
         :return:
         :rtype: :class:`scipy.sparse.coo_matrix`
         """
+
+        horizon = self.timesteps if horizon is None else horizon
+
+
         p_bs = dict()
         for bus in self.get_network().buses:
             cols, rows, data = [], [], []
@@ -610,10 +615,10 @@ class MPNetwork():
                 data += [1]
             p_b = scipy.sparse.coo_matrix((data, (rows, cols)), shape=(len(bus.branches), self.get_num_branches_not_on_outage()))
 
-            p_bs[bus.index] = scipy.sparse.block_diag([p_b] * self.timesteps)
+            p_bs[bus.index] = scipy.sparse.block_diag([p_b] * horizon)
         return p_bs
 
-    def get_battery_var_projection(self, bus):
+    def get_battery_var_projection(self, bus, horizon=None):
         """
         creates a projection matrix that extracts the variables (for all t) for all batteries
         connected to the given bus from the state vector x
@@ -624,11 +629,14 @@ class MPNetwork():
         :rtype: :class:`scipy.sparse.coo_matrix`
 
         """
+
+        horizon = self.timesteps if horizon is None else horizon
+
         # project all battery variables for the given bus
         p_bat = scipy.sparse.hstack([self.get_battery_projection(battery) for battery in bus.bats])
 
         # create blockdiagonal matrix with multiple timesteps
-        p_bat_mp = scipy.sparse.block_diag([p_bat] * self.timesteps)
+        p_bat_mp = scipy.sparse.block_diag([p_bat] * horizon)
         return p_bat_mp
 
     def get_battery_projection(self, battery):
