@@ -68,15 +68,15 @@ class MPProblem():
                 self.A = battery_a
                 self.b = battery_b
 
-        self.Hphi = scipy.sparse.block_diag([self.problems[i].Hphi for i in self.simulation_time])
-        self.G = scipy.sparse.block_diag([self.problems[i].G for i in self.simulation_time])
-        self.gphi = np.hstack([self.problems[i].gphi for i in self.simulation_time])
+        self.Hphi = scipy.sparse.block_diag([self.problems[t].Hphi for t in self.simulation_time])
+        self.G = scipy.sparse.block_diag([self.problems[t].G for t in self.simulation_time])
+        self.gphi = np.hstack([self.problems[t].gphi for t in self.simulation_time])
 
-        self.x = np.hstack([self.problems[i].x for i in self.simulation_time])
+        self.x = np.hstack([self.problems[t].x for t in self.simulation_time])
 
         # lower and upper limits
-        self.l = np.hstack([self.problems[i].l for i in self.simulation_time])
-        self.u = np.hstack([self.problems[i].u for i in self.simulation_time])
+        self.l = np.hstack([self.problems[t].l for t in self.simulation_time])
+        self.u = np.hstack([self.problems[t].u for t in self.simulation_time])
 
     def clear(self):
         """
