@@ -2,8 +2,7 @@ import numpy as np
 import pfnet
 import scipy
 
-from . import CONSTR_TYPE_BAT_DYN
-
+from mppfnet import CONSTR_TYPE_BAT_DYN
 
 class MPProblem():
     problems = dict()
@@ -22,9 +21,9 @@ class MPProblem():
         self.net = network
 
         self.start_time = start_time
-        self.end_time = self.timesteps if end_time is None else end_time
-        self.simulation_time = range(start_time, end_time)
-        self.timesteps = end_time - start_time
+        self.end_time = self.net.timesteps if end_time is None else end_time
+        self.simulation_time = range(self.start_time, self.end_time)
+        self.timesteps = self.end_time - self.start_time
         self.construct_subproblems()
 
     def add_constraint(self, constraint_type):
@@ -156,29 +155,29 @@ class MPProblem():
         # For first timestep
         data_a += [-battery.eta_c, 1/battery.eta_d,  # Power
                   1 / delta_t]  # Energy (current)
-        row_a = [self.start_time, self.start_time,  self.start_time]
+        row_a = [0, 0,  0]
         column_a = [index_Pc, index_Pd, index_E]
 
-        nx = self.net.num_vars // self.timesteps
-        for t in range(self.start_time + 1, self.end_time):  # start at one as the initial time is sepcial
+        nx = self.net.nx
+        for tau, t in enumerate(range(self.start_time + 1, self.end_time)):  # start at one as the initial time is sepcial
             data_a += [(- 1 / delta_t)]  # Energy (previous)
-            row_a += [t]
-            column_a += [((t - 1) * nx + index_E)]
+            row_a += [tau + 1]
+            column_a += [((tau +1 - 1) * nx + index_E)]
             data_a += [-battery.eta_c, 1/battery.eta_d,  # Power
                        (1 / delta_t)]  # Energy (current)
-            row_a += [t, t, t]
-            column_a += [(t * nx + index_Pc), (t * nx + index_Pd), (t * nx + index_E)]
+            row_a += [tau + 1, tau + 1, tau + 1]
+            column_a += [((tau + 1) * nx + index_Pc), ((tau + 1)  * nx + index_Pd), ((tau + 1)  * nx + index_E)]
 
         # For the last timestep
         data_a += [ 1 / delta_t]  # Energy (current)
-        row_a += [ self.end_time ]
-        column_a += [ ((self.end_time - 1) * nx + index_E)]
+        row_a += [ self.end_time - self.start_time ]
+        column_a += [ ((self.end_time - self.start_time - 1) * nx + index_E)]
 
        # a = scipy.sparse.coo_matrix((data_a, (row_a, column_a)), shape=(self.timesteps, nx * self.timesteps))
         a = scipy.sparse.coo_matrix((data_a, (row_a, column_a)), shape=(self.timesteps+1, nx * self.timesteps))
         return a
 
-    def get_battery_b(self, battery):
+    def get_battery_b(self, battery, e_init=0):
         """
         :param battery:
         :param start_time:
@@ -190,7 +189,7 @@ class MPProblem():
         b = np.zeros((self.end_time + 1 - self.start_time,))
         #b = np.zeros((self.net.timesteps,))
 
-        b[0] = (1 / self.net.delta_t) * self.net.e_init
+        b[0] = (1 / self.net.delta_t) * e_init
         #b[self.timesteps] =  1 / self.net.delta_t * self.net.e_init
         return b
 

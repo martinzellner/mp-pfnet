@@ -4,7 +4,7 @@ from datetime import datetime
 import pfnet
 import scipy
 import numpy as np
-from . import load_profile
+#from . import load_profile
 from . import solar_profile
 
 
@@ -41,6 +41,10 @@ class MPNetwork():
     @property
     def nx(self):
         return self.get_network().num_vars
+
+    @property
+    def net(self):
+        return self.get_network()
 
     def add_vargens(self, buses, penetration, uncertainty, corr_radius, corr_value):
         """
@@ -547,7 +551,7 @@ class MPNetwork():
         sim_p_mats, sim_p_ang, sim_p_x= dict(), dict(), dict()
 
         for bus in filter(lambda bus: (not bus.is_slack()), self.get_network().buses):
-            sim_p_mats[bus.index] = scipy.sparse.block_diag([p_mats[bus.index] for i in range(self.timesteps)])
+            sim_p_mats[bus.index] = scipy.sparse.block_diag([p_mats[bus.index]] * self.timesteps)
             #sim_p_ang[bus.index] = scipy.sparse.block_diag([p_ang[bus.index] for i in range(self.timesteps)])
             #sim_p_x[bus.index] = scipy.sparse.block_diag([p_x[bus.index] for i in range(self.timesteps)])
 
@@ -666,7 +670,9 @@ class MPNetwork():
             data += [1]
             num_vars += 1
 
-        # size of the state vector
-        nx = self.get_network().num_vars
+        return scipy.sparse.coo_matrix((data, (rows, cols)), shape=(num_vars, self.nx))
 
-        return scipy.sparse.coo_matrix((data, (rows, cols)), shape=(num_vars, nx))
+    def get_simulation_time_projection(self, simulation_time):
+        select_timesteps = scipy.sparse.coo_matrix(([1] * len(simulation_time), (range(len(simulation_time)), simulation_time)),
+                                shape=(len(simulation_time), self.timesteps))
+        return scipy.sparse.kron(select_timesteps, scipy.sparse.eye(self.nx))
