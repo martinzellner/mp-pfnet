@@ -110,16 +110,16 @@ class MPProblem():
         pass  # TODO
 
     def get_init_point(self):
-        return np.hstack([self.problems[t].get_init_point() for t in range(self.net.timesteps)])
+        return np.hstack([self.problems[t].get_init_point() for t, tau in enumerate(self.simulation_time)])
 
     def get_lower_limits(self):
-        return np.hstack([self.problems[t].get_lower_limits() for t in range(self.net.timesteps)])
+        return np.hstack([self.problems[t].get_lower_limits() for t, tau in enumerate(self.simulation_time)])
 
     def get_network(self):
         return self.net
 
     def get_upper_limits(self):
-        return np.hstack([self.problems[t].get_upper_limits() for t in range(self.net.timesteps)])
+        return np.hstack([self.problems[t].get_upper_limits() for t, tau in enumerate(self.simulation_time)])
 
     def show(self):
         pass  # TODO
